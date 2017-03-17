@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+	<h:graphicImage value="/images/dice_logo_white.png"/>	<h:head>
+	</h:head>
+	
+<h:body>
+
+<h:form>
+
+	<p:panel id="panel" header="DICE Fault Injection Tool" >
+   <h:commandButton action="cpu" value="DICE FIT CPU Load" icon="ui-icon-check"/>
+   <h:commandButton action="ram" value="DICE FIT RAM Load" />
+   <h:commandButton action="disk" value="DICE FIT DISK Load" />
+   <h:commandButton action="fco" value="DICE FIT Stop Random VM"/>
+   <h:commandButton action="deployment" value="DICE FIT Deployment" />
+   <h:commandButton action="service" value="DICE FIT Stop Service" />
+   <h:commandButton action="blockvm" value="DICE FIT Block VM" />
+    </p:panel>
+</h:form>
+
+</h:body>
+</html>

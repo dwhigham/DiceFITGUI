@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+<h:body>
+
+<h:form>
+    <p:panel id="panel" header="DICE FIT Deployment">
+ 
+        <p:messages id="msgs" />
+ 
+        <h:panelGrid columns="3" cellpadding="8">
+            <p:outputLabel for="token" value="Token" />
+            <p:inputText id="token" value="#{deploymentView.token}" required="true" label="TOKEN">
+                <f:validateLength minimum="4" />
+            </p:inputText>
+            <p:message for="token" display="icon" />
+
+        </h:panelGrid>
+        
+   			<h:panelGrid columns="3" cellpadding="8">
+            <p:outputLabel for="id" value="ID" />
+            <p:inputText id="id" value="#{deploymentView.id}" required="false" label="ID">
+                <f:validateLength minimum="4" />
+            </p:inputText>
+            <p:message for="id" display="icon" />
+
+        </h:panelGrid>
+ 
+      
+        <p:commandButton value="List Deployments" update="panel" actionListener="#{deploymentView.message}" icon="ui-icon-check" />
+  	    <p:commandButton value="List Nodes" update="panel" actionListener="#{deploymentView.deploymentlist}" icon="ui-icon-check" />
+  	    <p:commandButton value="Start Fault" update="panel" actionListener="#{deploymentView.readconfig}" icon="ui-icon-check" />
+  	  </p:panel>
+	</h:form>
+
+	<h:form enctype="multipart/form-data">
+    <p:growl id="messages" showDetail="true" />
+ 
+    <p:fileUpload value="#{deploymentView.file}"  mode="simple" skinSimple="true"/> 
+    <p:commandButton value="Submit" ajax="false" actionListener="#{deploymentView.upload}" disabled="false" />
+	<h:commandButton action="home" value="Home" />
+	</h:form>
+</h:body>
+<h3>All completed Deployments</h3>
+<p:scrollPanel id="DEPLOYMENTOUTPUT" mode="native" style="width:500px;height:200px">
+    <p>
+     <h:outputText value="" />
+     <h:outputText id="displayvalue" value="#{globals.deploymenttext}" />
+    </p>
+</p:scrollPanel>
+<h3>Deployment details</h3>
+<p:scrollPanel id="DEPLOYMENTOUTPUTDETAILS" mode="native" style="width:500px;height:200px">
+    <p>
+     <h:outputText value="" />
+     <h:outputText id="displayvaluedetails" value="#{globals.deploymentnodelist}" />
+    </p>
+</p:scrollPanel>
+</html>

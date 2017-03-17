@@ -1,0 +1,10 @@
+{
+  "name": "Darren",
+  "faultname": "DICE",
+  "faulttype": "cpu"
+}
+{
+  "name": "2",
+  "faultname": "DICE2",
+  "faulttype": "ram"
+}

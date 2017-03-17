@@ -1,0 +1,7 @@
+{
+  "name": "Darren",
+   deploymentinfo: {
+    dicename:"dice",
+    fault:cpu
+	}
+}
