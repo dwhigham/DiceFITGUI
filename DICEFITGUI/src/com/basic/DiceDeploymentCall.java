@@ -1,16 +1,12 @@
 package com.basic;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Scanner;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,10 +16,6 @@ import org.primefaces.util.ArrayUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelExec;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
 @ManagedBean
 @SessionScoped
 public class DiceDeploymentCall {
@@ -173,10 +165,10 @@ public class DiceDeploymentCall {
 		}
 	}
 	
-	
-	public void dicedeploymentfaultcaller1(String token, String id,String name, String fault,String username, String password) {
+	public void dicedeploymentfaultcaller1(String token, String id,String name, String fault,String username, String sshkey) {
 		try {
-			
+    	    System.out.println(sshkey);
+
 			String resturl = "http://109.231.122.194/containers/"+id+"/nodes";
 			URL url = new URL(resturl);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -209,7 +201,7 @@ public class DiceDeploymentCall {
 			if (ArrayUtils.contains(node[i].getComponents(), name)){
 			//String host;
 			System.out.println(node[i].toString());
-			String Configkeypath = ("/Users/darrenw/Downloads/PrimeTest/Uploads/test");
+			//String Configkeypath = ("/Users/darrenw/Downloads/PrimeTest/Uploads/test");
 			String host;
 			switch(fault){
 			
@@ -218,34 +210,33 @@ public class DiceDeploymentCall {
 	            System.out.println(host);
 		  	    CpuStress cpustress = new CpuStress();
 		  	    //cpustress.stresscpu("1","50",password,host,"-no","DEPLOYMENTOUTPUTDETAILS");
-		  	    cpustress.stresscpu("1","60","-no",host,Configkeypath,"DEPLOYMENTOUTPUTDETAILS");
-
+		  	    cpustress.stresscpu("1","60","-no",host,sshkey,"DEPLOYMENTOUTPUTDETAILS");
 		  	    System.out.println("Completed");
 		  	    break;
 	  	    
 			case "ram":
-			host= username +"@"+node[i].getIp();
-			RamStress ramstress = new RamStress();
-			ramstress.stressmemory(host, "-no", "1", "256", Configkeypath,"DEPLOYMENTOUTPUTDETAILS");
-			System.out.println("Completed");
-	  	    break;
+				host= username +"@"+node[i].getIp();
+				RamStress ramstress = new RamStress();
+				ramstress.stressmemory(host, "-no", "1", "256", sshkey,"DEPLOYMENTOUTPUTDETAILS");
+				System.out.println("Completed");
+				break;
 	  	    
 			case "disk":
 				 host= username +"@"+node[i].getIp();
 				DiskStress diskstress = new DiskStress();
-				diskstress.stressdisk(host, "-no", "", "", Configkeypath);
+				diskstress.stressdisk(host, "-no", "", "", sshkey);
 				System.out.println("Completed");
 		  	    break;
 			case "blockvm":
 				host= username +"@"+node[i].getIp();
 				BlockVM blockvm = new BlockVM();
-				blockvm.blockfirewall(host, "-no", Configkeypath);
+				blockvm.blockfirewall(host, "-no", sshkey);
 				System.out.println("Completed");
 		  	    break; 
 			case "stopservice":
 				host= username +"@"+node[i].getIp();
 				StopService stopservice = new StopService();
-				stopservice.stopservice(host, "-no", "", Configkeypath);
+				stopservice.stopservice(host, "-no", "", sshkey);
 				System.out.println("Completed");
 		  	    break;
 			case "bandwidth":

@@ -42,6 +42,10 @@
  
     <p:fileUpload value="#{deploymentView.file}"  mode="simple" skinSimple="true"/> 
     <p:commandButton value="Submit" ajax="false" actionListener="#{deploymentView.upload}" disabled="false" />
+    
+    <p:fileUpload value="#{deploymentView.sshfile}"  mode="simple" skinSimple="true"/> 
+    <p:commandButton value="Submit" ajax="false" actionListener="#{deploymentView.uploadsshkey}" disabled="false" />
+	
 	<h:commandButton action="home" value="Home" />
 	</h:form>
 </h:body>

@@ -23,7 +23,20 @@ public class DeploymentView {
     private String token;
     private String id;
     private UploadedFile file;
+    
+    private UploadedFile sshfile;
+
+	public UploadedFile getSshfile() {
+		return sshfile;
+	}
+	public void setSshfile(UploadedFile sshfile) {
+		this.sshfile = sshfile;
+	}
+
 	private String configpath;
+	private String sshkeypath;
+	
+
     public UploadedFile getFile() {
         return file;
     }
@@ -48,24 +61,31 @@ public class DeploymentView {
 	public void setConfigkeypath(String configpath) {
 		this.configpath = configpath;
 	}
-
+	public String getSshkeypath() {
+		return sshkeypath;
+	}
+	public void setSshkeypath(String sshkeypath) {
+		this.sshkeypath = sshkeypath;
+	}
 		public void upload() throws IOException {
-			/*
+			
     	try (InputStream input = file.getInputstream()) {
             Date date = new Date();
             long datetime = date.getTime();
-    		Files.copy(input, new File("/Users/darrenw/Downloads/PrimeTest/Uploads/"+ datetime + file.getFileName()).toPath());
-    	    File fileper = new File("/Users/darrenw/Downloads/PrimeTest/Uploads/"+ datetime + file.getFileName());
-            //Files.copy(input, new File("/home/ubuntu/Uploads/"+ datetime + file.getFileName()).toPath());
-    	    //File fileper = new File("/home/ubuntu/Uploads/"+ datetime + file.getFileName());
+            //Files.copy(input, new File("/Users/darrenw/dicegui/DICEFITGUI/Uploads/"+ datetime + file.getFileName()).toPath());
+            //File fileper = new File("/Users/darrenw/dicegui/DICEFITGUI/Uploads/"+ datetime + file.getFileName());
+            Files.copy(input, new File("/home/ubuntu/Uploads/"+ datetime + file.getFileName()).toPath());
+    	    File fileper = new File("/home/ubuntu/Uploads/"+ datetime + file.getFileName());
     	    fileper.setReadable(true, false);
     	    fileper.setWritable(true, false);
-    	    setConfigkeypath("/Users/darrenw/Downloads/PrimeTest/Uploads/"+ datetime + file.getFileName());
-    	    //setConfigkeypath("/home/ubuntu/Uploads/"+ datetime + file.getFileName());
+    	    //setConfigkeypath("/Users/darrenw/dicegui/DICEFITGUI/Uploads/"+ datetime + file.getFileName());
+    	    setConfigkeypath("/home/ubuntu/Uploads/"+ datetime + file.getFileName());
     	    System.out.println(configpath.toString());
-    	}    */
-		setConfigkeypath("/Users/darrenw/Downloads/PrimeTest/Uploads/1488896529554jsontest1.json");
-    	readconfig();
+    	}    
+		//setConfigkeypath("/Users/darrenw/Downloads/PrimeTest/Uploads/1488896529554jsontest1.json");
+    	//readconfig();
+	    System.out.println("UPLOADS");
+
     }
    		public void deploymentlist()
     {
@@ -75,7 +95,7 @@ public class DeploymentView {
     }
 	    public void readconfig()
 	    {
-	    setConfigkeypath("/Users/darrenw/Downloads/PrimeTest/Uploads/1488896529554jsontest1.json");
+	    //setConfigkeypath("/Users/darrenw/Downloads/PrimeTest/Uploads/1488896529554jsontest1.json");
 	    Gson gson = new Gson();  
 	    try { 
 	    	
@@ -88,13 +108,12 @@ public class DeploymentView {
 	    	    //convert the json string back to object  
 	    	   DeploymentInfo deploymentinfo = gson.fromJson(br, DeploymentInfo.class);  
 	    	     
-	    	   System.out.println("Name: "+deploymentinfo.getName() + "Fault Name: "+deploymentinfo.getFaultname() + "Fault type: "+deploymentinfo.getFaulttype()+ "Password: "+deploymentinfo.getPassword()+ " token: " + deploymentinfo.getToken() + " nodeid " + deploymentinfo.getNodeid());  
+	    	   System.out.println("Name: "+deploymentinfo.getName() + "Fault Name: "+deploymentinfo.getFaultname() + " token: " + deploymentinfo.getToken() + " nodeid " + deploymentinfo.getNodeid());  
 	           System.out.println(deploymentinfo.getToken().toString());
 	           br.close();
 	           DiceDeploymentCall dicedeployment = new DiceDeploymentCall();
 	       		dicedeployment.dicedeploymentfaultcaller1(deploymentinfo.getToken(),
-	       				deploymentinfo.getNodeid(), deploymentinfo.getName(),deploymentinfo.getFaulttype(),deploymentinfo.getUsername(), 
-	       				deploymentinfo.getPassword());
+	       				deploymentinfo.getNodeid(), deploymentinfo.getName(),deploymentinfo.getFaulttype(),deploymentinfo.getUsername(),getSshkeypath());
 	    	    
 	    } catch (IOException e) {  
 	    	   e.printStackTrace();  
@@ -116,4 +135,25 @@ public class DeploymentView {
     	dicedeployment.dicedeploymentservice(token);
 		//LoggerWrapper.myLogger.info("DICE deployment info");
     }
+	    
+	    public void uploadsshkey() throws IOException {
+	        
+	    	try (InputStream input = sshfile.getInputstream()) {
+	            Date date = new Date();
+	            long datetime = date.getTime();
+
+	            //Files.copy(input, new File("/Users/darrenw/dicegui/DICEFITGUI/Uploads/"+ datetime + sshfile.getFileName()).toPath());
+	           //File fileper1 = new File("/Users/darrenw/dicegui/DICEFITGUI/Uploads/"+ datetime + sshfile.getFileName());
+	            Files.copy(input, new File("/home/ubuntu/Uploads/"+ datetime + sshfile.getFileName()).toPath());
+	    	    File fileper1 = new File("/home/ubuntu/Uploads/"+ datetime + sshfile.getFileName());
+	            fileper1.setReadable(true, false);
+	            fileper1.setWritable(true, false);
+	    	    //setSshkeypath("/Users/darrenw/dicegui/DICEFITGUI/Uploads/"+ datetime + sshfile.getFileName());
+		    	 setSshkeypath("/home/ubuntu/Uploads/"+ datetime + sshfile.getFileName());
+
+	    	    System.out.println(sshkeypath.toString());
+	    	    System.out.println("keys");
+
+	    	}     
+	    }
 }

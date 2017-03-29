@@ -49,7 +49,13 @@ public class CpuStress {
 		requestContext1.update(output);
 		//Set up for First command sent
 		String command;
-		
+		if(localOS == null)
+		{					
+			Globals.text= Globals.text + " Unable to connect to VM";
+			RequestContext requestContextexit = RequestContext.getCurrentInstance();
+			requestContextexit.update(output);
+			 return;
+		}
 		if (localOS.equals("UBUNTU"))
 		{
 		command ="dpkg-query -W -f='${Status}' stress";

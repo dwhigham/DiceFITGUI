@@ -1,7 +1,0 @@
-{
-  "name": "Darren",
-  "faultcomponents": [
-      "dice.components.misc.ScriptRunner",
-      "dice.hosts.Medium"
-    ]
-  }

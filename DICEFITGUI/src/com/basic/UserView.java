@@ -90,14 +90,14 @@ public class UserView {
 	            Date date = new Date();
 	            long datetime = date.getTime();
 
-	    		Files.copy(input, new File("/Users/darrenw/Downloads/PrimeTest/Uploads/"+ datetime + file.getFileName()).toPath());
-	    	  File fileper = new File("/Users/darrenw/Downloads/PrimeTest/Uploads/"+ datetime + file.getFileName());
-	            //Files.copy(input, new File("/home/ubuntu/Uploads/"+ datetime + file.getFileName()).toPath());
-	    	   // File fileper = new File("/home/ubuntu/Uploads/"+ datetime + file.getFileName());
+	            //Files.copy(input, new File("/Users/darrenw/dicegui/DICEFITGUI/Uploads/"+ datetime + file.getFileName()).toPath());
+	            //File fileper = new File("/Users/darrenw/dicegui/DICEFITGUI/Uploads/"+ datetime + file.getFileName());
+	            Files.copy(input, new File("/home/ubuntu/Uploads/"+ datetime + file.getFileName()).toPath());
+	            File fileper = new File("/home/ubuntu/Uploads/"+ datetime + file.getFileName());
 	    	    fileper.setReadable(true, false);
 	    	    fileper.setWritable(true, false);
-	    	    setSshkeypath("/Users/darrenw/Downloads/PrimeTest/Uploads/"+ datetime + file.getFileName());
-		    	 // setSshkeypath("/home/ubuntu/Uploads/"+ datetime + file.getFileName());
+	    	    //setSshkeypath("/Users/darrenw/dicegui/DICEFITGUI/Uploads/"+ datetime + file.getFileName());
+		    	 setSshkeypath("/home/ubuntu/Uploads/"+ datetime + file.getFileName());
 
 	    	    System.out.println(sshkeypath.toString());
 	    	}     
